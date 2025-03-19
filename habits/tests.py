@@ -31,7 +31,7 @@ class HabitViewSetTestCase(APITestCase):
         Habit.objects.all().delete()
 
     def test_create_habit_for_user1(self):
-        """Тест на создание привычки для пользователя user1"""
+        """Тест на создание привычки для пользователя test_user1"""
         self.client.force_authenticate(user=self.test_user1)
         response = self.client.post("/habits/", self.habit_data, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -39,7 +39,7 @@ class HabitViewSetTestCase(APITestCase):
         self.assertEqual(Habit.objects.first().user, self.test_user1)
 
     def test_read_habit_for_user1(self):
-        """Тест на получение привычки для пользователя user1"""
+        """Тест на получение привычки для пользователя test_user1"""
         self.client.force_authenticate(user=self.test_user1)
         self.client.post("/habits/", self.habit_data, format="json")
 
@@ -212,7 +212,7 @@ class HabitValidationTestCase(APITestCase):
 class PublicHabitListAPIViewTest(APITestCase):
     def setUp(self):
         self.test_user1 = get_user_model().objects.create_user(
-            username="user1", password="12345678"
+            username="test_user1", password="12345678"
         )
         self.client = APIClient()
 
